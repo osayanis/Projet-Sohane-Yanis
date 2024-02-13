@@ -139,6 +139,13 @@ def creer_menus(fen):
 
 
     jeu.add_command(label='Quitter', command=fen.destroy)
+    jeu.add_command(label='Nouvelle partie', command=reinit)
+
+    submenu=Menu(jeu, tearoff=False)
+    jeu.add_cascade(label='Dimensions', menu=submenu)
+    submenu.add_command(label='5 x 4', command=jeu5x4)
+    submenu.add_command(label='5 x 6', command=jeu5x6)
+    submenu.add_command(label='5 x 8', command=jeu5x8)
 
     
 # ----- Création du canvas --------------------------------------------------------
@@ -166,6 +173,11 @@ def reinit():
     text2 = 'Joueur 2 : ' + str(score[1]*2)
     points_joueur1.config(text = text1, bg = 'orange')
     points_joueur2.config(text = text2, bg = 'white')
+    points_joueur1 = Label(fenetre, text = "Joueur 1 : 0",
+                       bg="orange", font="Helvetica 16")
+    points_joueur1.pack(pady = 2, side = LEFT)
+    points_joueur2 = Label(fenetre, text = "Joueur 2 : 0", font="Helvetica 16")
+    points_joueur2.pack(pady = 2, side = RIGHT)
 
 
 # ----- Programme principal ----------------------------------------------------
@@ -177,6 +189,11 @@ plateau = Frame(fenetre)
 plateau.pack()
 canvas=creer_canevas(plateau, nb_colonnes, nb_lignes)
 canvas.pack(side = TOP, padx = 2, pady = 2)
+points_joueur1 = Label(fenetre, text = "Joueur 1 : 0",
+                       bg="orange", font="Helvetica 16")
+points_joueur1.pack(pady = 2, side = LEFT)
+points_joueur2 = Label(fenetre, text = "Joueur 2 : 0", font="Helvetica 16")
+points_joueur2.pack(pady = 2, side = RIGHT)
 
 start = default_timer()
 text_clock = canvas.create_text(675,635)
